@@ -61,19 +61,23 @@ class _RippleEffectState extends State<RippleEffect>
             return AnimatedSampler(
               (image, size, canvas) {
                 shader
-                  ..setFloat(0, _position.dx)
-                  ..setFloat(1, _position.dy)
-                  ..setFloat(2, _controller.value * 8)
-                  ..setFloat(3, size.width)
-                  ..setFloat(4, size.height)
+                  ..setFloat(0, size.width)
+                  ..setFloat(1, size.height)
+                  ..setFloat(2, _position.dx)
+                  ..setFloat(3, _position.dy)
+                  ..setFloat(4, _controller.value * 8)
                   ..setImageSampler(0, image);
                 canvas.drawRect(
                   Rect.fromLTWH(0, 0, size.width, size.height),
                   Paint()..shader = shader,
                 );
               },
+              // child: GestureDetector(
+              //   onPanUpdate: _onTapUpdate,
+              //   // onPanDown: _onTapUpdate,
+              //   onPanCancel: ,
               child: Listener(
-                onPointerMove: _onTapUpdate,
+                onPointerUp: _onTapUpdate,
                 onPointerDown: _onTapUpdate,
                 child: rippleImage(),
               ),
